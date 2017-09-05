@@ -1,22 +1,52 @@
-# WikiGenomes.org
+# wikigenomes_base
+A configurable codebase for launching organism specific WikiGenomes spinoff applications (e.g. LactoBase.org)
 
-WikiGenomes is a portal to the biological content in the Wikidata project. It currently hosts the genes, proteins, and a variety of functional annotations for 120 bacteria genomes. WikiGenomes is designed to be both a resource for basic researchers to browse the collective knowledge of a variety of well studied organisms, and a technology layer that allows the user to add to that collective knowledge. To support this WikiGenomes provides defined editing forms that prompt the user to provide key information and references. WikiGenomes then adds that knowledge to the Wikidata knowledge graph.
+This is a web application framework for creating a model organism database leveraging the taxonomic, genetic and functional data that has been loaded to Wikidata.org by the [Gene Wiki Project](https://github.com/SuLab/GeneWikiCentral).
 
-Publication
+To create your own instance:
 
-For more information about WikiGenomes read our publication in DATABASE:
+You will need to run a virtual environment with python 3.4 or higher
+
+1. create a wikigenomes_conf.py file and populate with the proper configurations using wikigenomes_conf.py.template in the root (wikigenomes_setup) directory 
+
+wikigenomes_conf.py.template
+```
+### ADD THIS TO YOUR .gitignore FILE ###
+
+# Given title for application.  Anything you choose
+APPLICATION_TITLE = '<title>'
+
+# DJango Secret key can be generated using this tool: https://www.miniwebtool.com/django-secret-key-generator/
+secret_key = '<django secret key>'
+
+# OAUTH Consumer Credentials---to gain consumer credentials from MediaWiki.org you must register a consumer as outlined here:
+# https://www.mediawiki.org/wiki/OAuth/For_Developers#Registration
+consumer_key = '<wikimedia oauth consumer key>'
+consumer_secret = '<wikimedia oauth consumer secret>'
+
+# Configurations for django settings.py
+# ALLOWED_HOSTS add IP or domain name to list.
+allowed_hosts = ['title.org', 'localhost', 'aws IP', 'etc']
+# TIME_ZONE
+wg_timezone = 'America/Los_Angeles'
 
 
-[Tim E. Putman Sebastien Lelong, Sebastian Burgstaller-Muehlbacher, Andra Waagmeester, Colin Diesh, Nathan Dunn, Monica
-Munoz-Torres, Gregory S. Stupp, Chunlei Wu, Andrew I. Su, and Benjamin M. Good. 2017. <strong>“WikiGenomes:
-An Open Web Application for Community Consumption and Curation of Gene Annotation Data in Wikidata.” Database 2017 (March).
-doi:10.1093/database/baw028.](https://academic.oup.com/database/article-lookup/doi/10.1093/database/bax025)
+#  Application customization ##
+"""
+ Taxids of the organisms that will included in the instance
+ Currently available genomes include the 120 bacterial reference genomes:
+ https://www.ncbi.nlm.nih.gov/genome/browse/reference/ that currently populate WikiGenomes
+ You may also provide a  list of taxids from the list of representative species at NCBI RefSeq at the same url
+       - to get the desired taxids into Wikidata for use in your WikiGenomes instance, create an issue at:
+           https://github.com/SuLab/scheduled-bots
+         providing the list of taxids, the name and a brief description of your application.
+         You will then be notified through GitHub when the genomes,
+         their genes an proteins have been loaded to Wikidata
+"""
+# a list of taxids
+taxids = []
+```
 
+2. run setup.sh
 
-Related Projects
-
-[Gene Wiki](https://en.wikipedia.org/wiki/Portal:Gene_Wiki)
-
-[Wikidata Project Molecular Biology](https://www.wikidata.org/wiki/Wikidata:WikiProject_Molecular_biology)
-
-[Wikidata Project Microbiology](https://www.wikidata.org/wiki/Wikidata:WikiProject_Microbiology)
+3. point your browser at the host name you specified in 'allowed_hosts'
