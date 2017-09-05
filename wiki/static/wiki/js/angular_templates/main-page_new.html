@@ -1,0 +1,92 @@
+<style>
+    body {
+        padding-top: 120px;
+    }
+
+    .container-fluid {
+        /*height: 100%;*/
+        padding-top: 20px;
+        padding-bottom: 10px;
+
+    }
+
+    .navbar-custom {
+        background-color: #385d94;
+        color: whitesmoke;
+    }
+
+    #jbrowse-div {
+        resize: vertical;
+        overflow: auto;
+    }
+
+    .text_ol {
+        position: absolute;
+        top: 2px;
+        left: 65px;
+        width: 100%;
+    }
+
+</style>
+<div ng-show="$ctrl.loading" class="overlay">
+    <div class="loading-img"></div>
+</div>
+<nav class="navbar navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+
+        <div class="row">
+            <div class="col-md-3">
+                <div style="margin-left: 10px">
+                    <a style="color: whitesmoke" href="/">
+                        <h1 class="logo_overlay">{{ $ctrl.appName }}</h1>
+                    </a>
+                </div>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="col-md-9    ">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left form-group form-inline">
+                        <organism-form orgs="$ctrl.orgList"></organism-form>
+                        <gene-form taxid="$ctrl.currentTaxid"></gene-form>
+                        <!--<keyword-form></keyword-form>-->
+                    </form>
+
+                    <oauth-view style="float:right; margin-right: 15px"></oauth-view>
+                </div>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid" style="color:#385d94">
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <!--<gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>-->
+                    <genomic-position data="$ctrl.currentGene"></genomic-position>
+                </div>
+                <div class="panel-body">
+                    <div class="panel">
+                        <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                        <div id="jbrowse-div" style="height: 250px; border: solid #99c2ff 3px; border-radius: 3px ">
+                            <jbrowse-view ng-if="$ctrl.currentGene.entrez" entrez="$ctrl.currentGene.entrez"
+                                          gene="$ctrl.currentGene"
+                                          taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+                        </div>
+                    </div>
+                    <div style="padding: 30px 30px 5px 30px;">
+                        <annotations-view annotations="$ctrl.annotations" data="$ctrl.currentGene"></annotations-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+</div>
