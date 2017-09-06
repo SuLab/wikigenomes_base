@@ -5,7 +5,8 @@ This is a web application framework for creating a model organism database lever
 
 To create your own instance:
 
-You will need to run a virtual environment with python 3.4 or higher
+You will need to run a virtual environment with python 3.4 or higher.
+You will also need to install the current version of MongoDB and make sure it is running before proceeding.
 
 1. create a wikigenomes_conf.py file and populate with the proper configurations using wikigenomes_conf.py.template in the root (wikigenomes_setup) directory 
 
